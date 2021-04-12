@@ -90,7 +90,8 @@ class NodeRelayServer {
     });
     this.dynamicSessions.set(id, session);
     session.run();
-    Logger.log('[Relay dynamic pull] start', id, conf.inPath, ' to ', conf.ouPath);
+    console.log('utl' + url);
+    Logger.log('[Relay  pull] start', id, conf.inPath, ' to ', conf.ouPath);
     return id;
   }
 
@@ -126,7 +127,8 @@ class NodeRelayServer {
       if (isPull && app === conf.app && !context.publishers.has(streamPath)) {
         let hasApp = conf.edge.match(/rtmp:\/\/([^\/]+)\/([^\/]+)/);
         conf.ffmpeg = this.config.relay.ffmpeg;
-        conf.inPath = hasApp ? `${conf.edge}/${stream}` : `${conf.edge}${streamPath}`;
+        //conf.inPath = hasApp ? `${conf.edge}/${stream}` : `${conf.edge}${streamPath}`;
+        conf.inPath = `${conf.edge}`; // Hack to relay rtsp edge to RTMP
         conf.ouPath = `rtmp://127.0.0.1:${this.config.rtmp.port}${streamPath}`;
         let session = new NodeRelaySession(conf);
         session.id = id;
